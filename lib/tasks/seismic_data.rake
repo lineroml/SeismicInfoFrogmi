@@ -37,7 +37,7 @@ namespace :seismic_data do
       next if mag < -1.0 || mag > 10.0
       next if latitude < -90.0 || latitude > 90.0
       next if longitude < -180.0 || longitude > 180.0
-      # Add more validation for other fields if needed
+
       # check if the record already exists
       next if Feature.exists?(external_id: id)
 
