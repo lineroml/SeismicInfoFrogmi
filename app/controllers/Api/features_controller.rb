@@ -6,8 +6,7 @@ module Api
       limit = params[:per_page] == nil ? 20 : [params[:per_page].to_i, 1000].min
       filter= params[:mag_type]
 
-      features = Feature.get_features_by_mag_type_paginated(filter, page, limit)
-
+      features, count = Feature.get_features_by_mag_type_paginated(filter, page, limit)
 
       render json: {
         data: features.map do |feature|
@@ -36,7 +35,7 @@ module Api
         pagination: {
           page: page,
           per_page: limit,
-          total: Feature.count,
+          total: count,
         }
       }
     end
