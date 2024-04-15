@@ -24,20 +24,24 @@ The setups steps expect following tools installed on the system.
 
 To run this project, you should consider the following:
 
-- If running locally, the project will have **NO DATA** whatsoever. There is a task configured using [whenever](https://github.com/javan/whenever), however, as this utilises a cronjob to run, it is recommended to execute the task manually to force the database to populate. You can do it by running the following command:
+- If running locally, the project will have **NO DATA** whatsoever. There is no database included with the project (duh). You will need to create / populate the database yourself. You can do this by running the following command:
 
 ```bash
-
-rake seismic_data:fetch
-
+rails db:create db:migrate
 ```
+
+For the data population, there is a task configured using [whenever](https://github.com/javan/whenever), however, as this utilises a cronjob to run, it is recommended to execute the task manually to force the database to populate. You can do it by running the following command:
+
+```bash
+rake seismic_data:fetch
+```
+
+This may take a while, as the task will fetch the data from the USGS API and populate the database with the data. Please be patient. (You may also want to test if the task also checks for duplicates and does not populate the database with the same data over and over again _wink wink_)
 
 When ready to execute the project. You may use the following command:
 
 ```bash
-
 rails s
-
 ```
 
 **NOTE**: The project will run on port 3000 by default. If you wish to run on a different port, you may use the `-p` flag followed by the port number. This is **NECESSARY** if you´re running the companion front-end project, as that runs by default on port 3000.
